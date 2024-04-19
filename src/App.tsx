@@ -4,11 +4,11 @@ import {LoadingScreen} from "./components/loading-screen/LoadingScreen";
 
 const App : React.FC = () => {
   const comp = useRef(null);
-  const disabledAnimation = true;
+  const disabledAnimation = false;
 
   return (
     <div ref={comp} >
-      {!disabledAnimation && <LoadingScreen comp={comp} disabled={true}/> }
+      {!disabledAnimation && <LoadingScreen comp={comp} disabled={disabledAnimation}/> }
     </div>
   );
 }
