@@ -40,9 +40,9 @@ export const LoadingScreen : React.FC<LoadingScreenProps> = ({comp, disabled}) =
         yPercent: "-20",
         opacity: 0,
         duration: 0.2,
-      }).from("#LoadingScreenPage", {
+      }).to("#LoadingScreenPage", {
         xPercent: "-100",
-        duration: 0.3,
+        duration: 0.5,
         delay:1
       })
     }, comp);
