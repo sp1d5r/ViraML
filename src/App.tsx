@@ -1,15 +1,15 @@
-import React, { useRef } from 'react';
-import { LoadingScreen } from './components/loading-screen/LoadingScreen';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Landing from './pages/Landing';
 
-const App : React.FC = () => {
-  const comp = useRef(null);
-  const disabledAnimation = false;
-
-  return (
-    <div ref={comp}>
-      {!disabledAnimation && <LoadingScreen comp={comp} disabled={disabledAnimation} /> }
-    </div>
-  );
-};
+const App : React.FC = () => (
+  <div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+      </Routes>
+    </Router>
+  </div>
+);
 
 export default App;

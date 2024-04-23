@@ -53,7 +53,7 @@ export const LoadingScreen : React.FC<LoadingScreenProps> = ({ comp, disabled })
   }, [comp, disabled]);
 
   return (
-    <div hidden={disabled} id="LoadingScreenPage" className="w-screen h-screen bg-black flex justify-center items-center flex-col gap-2 left-[100vw]">
+    <div hidden={disabled} id="LoadingScreenPage" className="absolute z-50 w-screen h-screen bg-black flex justify-center items-center flex-col gap-2 ">
       <span className="flex gap-1 text-white items-center text-xl">
         <div className="relative w-10 h-10">
           <img id="LogoTopLeft" src={LogoTopLeft} alt="Logo" className="absolute top-0 left-0 object-contain h-full w-full" />
