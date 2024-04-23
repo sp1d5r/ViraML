@@ -77,19 +77,19 @@ const Landing : React.FC = () => {
               <div
                 className="flex-1 dark:bg-black border-t border-r border-black dark:border-white bg-white dark:text-white flex justify-center items-center min-w-[200px] h-16 p-2"
               >
-                <img src={ONNX} alt="ONNX" className="h-full object-contain" />
+                <img src={ONNX} alt="ONNX" className="h-full invert dark:invert-0 object-contain" />
               </div>
 
               <div
                 className="flex-1 dark:bg-black border-t border-r border-black dark:border-white bg-white dark:text-white flex justify-center items-center min-w-[200px] h-16 p-2"
               >
-                <img src={Golem} alt="GOLEM" className="h-full object-contain" />
+                <img src={Golem} alt="GOLEM" className="h-full invert dark:invert-0 object-contain" />
               </div>
 
               <div
                 className="flex-1 dark:bg-black border-t border-black dark:border-white bg-white dark:text-white flex justify-center items-center min-w-[200px] h-16 p-2"
               >
-                <img src={IPFS} alt="IPFS" className="h-full object-contain" />
+                <img src={IPFS} alt="IPFS" className="h-full invert dark:invert-0 object-contain" />
               </div>
             </div>
           </div>
