@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollableLayout from '../layouts/ScrollableLayout';
 import LandingIllustration from '../assets/landing/display.svg';
 import DesktopIllustration from '../assets/landing/DesktopImage.svg';
@@ -7,9 +8,11 @@ import MobileIllustration from '../assets/landing/MobileImage.svg';
 import ONNX from '../assets/Icons/onnx.png';
 import Golem from '../assets/Icons/golem.png';
 import IPFS from '../assets/Icons/ipfs.png';
+import Banner from '../assets/landing/ViraNovaBanner.svg';
 
 const Landing : React.FC = () => {
-  const comp = useRef(null);
+  const landingComp = useRef(null);
+  const aboutViraMLComp = useRef(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -22,20 +25,57 @@ const Landing : React.FC = () => {
         opacity: 0,
         duration: 0.5,
       }).from('#MobileIllustration', {
-        yPercent: '+100',
+        yPercent: '+70',
         duration: 0.3,
       }).from('#DesktopIllustration', {
-        yPercent: '+100',
+        yPercent: '+70',
         duration: 0.3,
       });
-    }, comp);
+    }, landingComp);
 
     return () => ctx.revert();
-  }, [comp]);
+  }, [landingComp]);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const triggerElement = aboutViraMLComp.current;
+
+    if (triggerElement) {
+      // Horizontal scroll for the Top Banner
+      gsap.fromTo('#TopBanner', {
+        xPercent: 0, // Start from fully right off-screen
+      }, {
+        xPercent: -30, // End fully left off-screen
+        ease: 'none',
+        scrollTrigger: {
+          trigger: triggerElement,
+          start: 'top 70%', // Start animation when the top of the triggerElement is at the top of the viewport
+          end: 'bottom top', // End when the bottom of the triggerElement is at the top of the viewport
+          scrub: true,
+        },
+      });
+
+      // Horizontal scroll for the Bottom Banner
+      gsap.fromTo('#BottomBanner', {
+        xPercent: -30, // Start from fully left off-screen
+      }, {
+        xPercent: 0, // End fully right off-screen
+        ease: 'none',
+        scrollTrigger: {
+          trigger: triggerElement,
+          start: 'top 70%', // Same as above
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    }
+  }, []);
 
   return (
     <ScrollableLayout loadingAnimation>
-      <section ref={comp} className="bg-white dark:bg-black min-h-[90vh] flex justify-center">
+      {/* Hero Section */}
+      <section className="bg-white dark:bg-black min-h-[90vh] flex justify-center" ref={landingComp}>
         <div
           className="grid max-w-screen-xl mx-auto lg:gap-8 xl:gap-0  lg:grid-cols-12 border-x border-black dark:border-white"
         >
@@ -100,6 +140,60 @@ const Landing : React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* About Vira ML */}
+      <section ref={aboutViraMLComp} className="relative bg-white dark:bg-black min-h-[70vh] flex justify-center items-center border-t border-black dark:border-white overflow-hidden">
+
+        {/* Motion Background text */}
+        <img id="TopBanner" className="absolute top-16 max-w-max w-[2800px] invert dark:invert-0 opacity-90" src={Banner} alt="ViraML" />
+
+        <div className="my-8 p-8 flex flex-col">
+          <span className="text-7xl text-black m-auto my-[70px] dark:text-white font-questrial">
+            About Vira
+            <span className="text-purple-300">ML</span>
+          </span>
+
+          <div className="flex gap-5 md:text-lg lg:text-xl">
+            <a href="/" className="font-questrial px-8 py-6 bg-black text-white max-h-14 flex justify-center items-center dark:bg-white dark:text-black">
+              Learn More
+            </a>
+
+            {/* Breif introduction */}
+
+            <div className="flex flex-col gap-5 text-black dark:text-white relative">
+              <span className="font-questrial max-w-[500px] ">
+                ViraML focuses on delivering
+                {' '}
+                <span className="underline">
+                  high throughput
+                  models
+                  {' '}
+                </span>
+                {' '}
+                while ensuring verifiability
+                and inter-chain operability.
+                {' '}
+              </span>
+              <p className="font-questrial max-w-[500px]">
+                Through model partitioning we’re able to break
+                {' '}
+                up models into smaller more manageable components.
+              </p>
+              <p className="font-questrial max-w-[500px]">
+                Using lightweight gaussian mixture models we can
+                {' '}
+                model the distribution of the partitioned models output space.
+              </p>
+              <p className="font-questrial max-w-[500px]">
+                Allowing for fast, reliable and scalable model verification.
+              </p>
+            </div>
+          </div>
+        </div>
+        {/* Bottom Banner */}
+        <img id="BottomBanner" className="absolute bottom-0 max-w-max w-[2800px] invert dark:invert-0 opacity-90" src={Banner} alt="ViraML" />
+      </section>
+
     </ScrollableLayout>
   );
 };
