@@ -12,41 +12,42 @@ export const LoadingScreen : React.FC<LoadingScreenProps> = ({ comp, disabled })
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       if (disabled) return;
+      if (comp.current) {
+        const timeline = gsap.timeline();
 
-      const timeline = gsap.timeline();
-
-      timeline.from('#LoadingScreenPage', {
-        xPercent: '-200',
-        duration: 0.5,
-        delay: 0,
-      }).from(['#LogoBottomRight', '#LogoTopLeft'], {
-        opacity: 0,
-        duration: 0.5,
-        delay: 0,
-      }).from('#LogoBottomRight', {
-        xPercent: '-4.4',
-        duration: 0.3,
-        delay: 0,
-      }).from(['#LogoTextI', '#LogoTextR', '#LogoTextA', '#LogoTextM', '#LogoTextL'], {
-        opacity: 0,
-        xPercent: '-20',
-        stagger: 0.2,
-        delay: 0,
-      })
-        .from(['#LogoTextM', '#LogoTextL'], {
-          color: 'white',
-          duration: 0.4,
-        })
-        .from('#LoadingScreenSubText', {
-          yPercent: '-20',
-          opacity: 0,
-          duration: 0.2,
-        })
-        .to('#LoadingScreenPage', {
-          xPercent: '-100',
+        timeline.from('#LoadingScreenPage', {
+          xPercent: '-200',
           duration: 0.5,
-          delay: 1,
-        });
+          delay: 0,
+        }).from(['#LogoBottomRight', '#LogoTopLeft'], {
+          opacity: 0,
+          duration: 0.5,
+          delay: 0,
+        }).from('#LogoBottomRight', {
+          xPercent: '-4.4',
+          duration: 0.3,
+          delay: 0,
+        }).from(['#LogoTextI', '#LogoTextR', '#LogoTextA', '#LogoTextM', '#LogoTextL'], {
+          opacity: 0,
+          xPercent: '-20',
+          stagger: 0.2,
+          delay: 0,
+        })
+          .from(['#LogoTextM', '#LogoTextL'], {
+            color: 'white',
+            duration: 0.4,
+          })
+          .from('#LoadingScreenSubText', {
+            yPercent: '-20',
+            opacity: 0,
+            duration: 0.2,
+          })
+          .to('#LoadingScreenPage', {
+            xPercent: '-100',
+            duration: 0.5,
+            delay: 1,
+          });
+      }
     }, comp);
 
     return () => ctx.revert();
