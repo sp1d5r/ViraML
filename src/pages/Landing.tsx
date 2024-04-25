@@ -9,10 +9,15 @@ import ONNX from '../assets/Icons/onnx.png';
 import Golem from '../assets/Icons/golem.png';
 import IPFS from '../assets/Icons/ipfs.png';
 import Banner from '../assets/landing/ViraNovaBanner.svg';
+import WhyLight from '../assets/landing/WHYDark.svg';
+import Facebook from '../assets/landing/facebook.png';
+import OpenAI from '../assets/landing/OpenAI.png';
+import Groq from '../assets/landing/Groq.png';
 
 const Landing : React.FC = () => {
   const landingComp = useRef(null);
   const aboutViraMLComp = useRef(null);
+  const whyComp = useRef(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -68,6 +73,72 @@ const Landing : React.FC = () => {
           end: 'bottom top',
           scrub: true,
         },
+      });
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    const whySection = whyComp.current;
+
+    if (whySection) {
+      gsap.fromTo('#WhyMain', { opacity: 0 }, {
+        scrollTrigger: {
+          trigger: '#WhyMain',
+          start: 'top 80%',
+          end: 'top 75%',
+          scrub: true,
+          toggleActions: 'play reverse pause pause',
+        },
+        opacity: 1,
+      });
+
+      gsap.fromTo('#WhyMain', { scale: 1 }, {
+        scrollTrigger: {
+          trigger: '#WhyMain',
+          start: 'top 60%',
+          end: 'top 55%',
+          scrub: true,
+          pin: false,
+          toggleActions: 'play reverse pause pause',
+        },
+        scale: 1.5,
+      });
+
+      gsap.fromTo(['#WhyMainLeft1', '#WhyMainLeft2', '#WhyMainLeft3'], { xPercent: 0, opacity: 0 }, {
+        scrollTrigger: {
+          trigger: '#WhyMain',
+          start: 'top 60%',
+          end: 'top 55%',
+          scrub: true,
+          pin: false,
+          toggleActions: 'play reverse pause pause',
+        },
+        xPercent: (i) => -120 * (i + 1),
+        opacity: 0.2,
+      });
+      gsap.fromTo(['#WhyMainRight1', '#WhyMainRight2', '#WhyMainRight3'], { xPercent: 0, opacity: 0 }, {
+        scrollTrigger: {
+          trigger: '#WhyMain',
+          start: 'top 60%',
+          end: 'top 55%',
+          scrub: true,
+          pin: false,
+          toggleActions: 'play reverse pause pause',
+        },
+        xPercent: (i) => +120 * (i + 1),
+        opacity: 0.2,
+      });
+      gsap.fromTo(['#OpenAiCard', '#GroqCard', '#FacebookCard'], { xPercent: (i) => -(10 * 2), opacity: 0 }, {
+        scrollTrigger: {
+          trigger: '#WhyMain',
+          start: 'top 55%',
+          end: 'top 35%',
+          scrub: true,
+          pin: false,
+          toggleActions: 'play reverse pause pause',
+        },
+        xPercent: 0,
+        opacity: 1,
       });
     }
   }, []);
@@ -192,6 +263,64 @@ const Landing : React.FC = () => {
         </div>
         {/* Bottom Banner */}
         <img id="BottomBanner" className="absolute bottom-0 max-w-max w-[2800px] invert dark:invert-0 opacity-90" src={Banner} alt="ViraML" />
+      </section>
+
+      <section ref={whyComp} className="relative bg-white dark:bg-black min-h-[80vh] flex flex-col justify-start items-center border-t border-black dark:border-white overflow-hidden">
+        <div id="WhyContainer" className="w-full flex justify-center items-center h-64">
+          <img id="WhyMainLeft1" className="absolute" src={WhyLight} alt="Why" />
+          <img id="WhyMainLeft2" className="absolute" src={WhyLight} alt="Why" />
+          <img id="WhyMainLeft3" className="absolute" src={WhyLight} alt="Why" />
+          <img id="WhyMainRight1" className="absolute" src={WhyLight} alt="Why" />
+          <img id="WhyMainRight2" className="absolute" src={WhyLight} alt="Why" />
+          <img id="WhyMainRight3" className="absolute" src={WhyLight} alt="Why" />
+          <span id="WhyMain" className="absolute text-[80px] my-[70px] dark:text-white font-questrial text-purple-300">WHY?</span>
+        </div>
+
+        <div className="w-full flex flex-wrap justify-center gap-10 items-center">
+          <a id="FacebookCard" href="https://www.youtube.com/watch?v=i-o5YbNfmh0" className="flex flex-wrap gap-2">
+            <div className="border border-black dark:border-white rounded-xl w-[350px] sm:w-auto min-w-[350px] max-w-[400px] h-[350px] text-black dark:text-white py-10 px-5 hover:scale-110 transition-all flex flex-col gap-2 items-center justify-center">
+              <img src={Facebook} alt="Zucc" className="aspect-square invert dark:invert-0" />
+              <p className="text-sm">Mark Zuckerberg</p>
+              <p className="text-lg font-questrial font-bold text-center">Energy, not computel The Bottleneck to AI</p>
+              <p className="text-gray-500 text-sm">
+                “Meaningful nuclear power plant only going towards training
+                a model and then you run into these things ... like getting energy permitted is
+                like a very heavily regulated government function...”
+              </p>
+            </div>
+          </a>
+
+          <a id="GroqCard" href="https://www.youtube.com/watch?v=Z0jqIk7MUfE&ab_channel=MatthewBerman" className="flex flex-wrap gap-2">
+            <div className=" border border-black dark:border-white rounded-xl w-[350px] sm:w-auto  max-w-[400px] h-[350px] text-black dark:text-white py-10 px-5 hover:scale-110 transition-all flex flex-col gap-2 items-center justify-center">
+              <img src={Groq} alt="Groq" className=" invert dark:invert-0" />
+              <p className="text-sm">Jonathan Ross</p>
+              <p className="text-lg font-questrial font-bold text-center">Compute is the new oil</p>
+              <p className="text-gray-500 text-sm">
+                “what we often see is people will train a
+                model and then they`&apos;ll go mission
+                accomplished we`&apos;ve succeeded now we`&apos;re
+                going to put it into production and then
+                all of a sudden they realize they`&apos;re
+                going to have to spend 10 to 20x to
+                deploy it...”
+              </p>
+            </div>
+          </a>
+
+          <a id="OpenAiCard" href="https://www.youtube.com/watch?v=jvqFAi7vkBc&t=4208s&ab_channel=LexFridman" className="flex flex-wrap gap-2">
+            <div className="border border-black dark:border-white rounded-xl min-w-[350px] w-[350px] sm:w-auto max-w-[400px] h-[350px] text-black dark:text-white py-10 px-5 hover:scale-110 transition-all flex flex-col gap-2 items-center justify-center">
+              <img src={OpenAI} alt="OpenAI" className="aspect-square invert dark:invert-0" />
+              <p className="text-sm">Sam Altman</p>
+              <p className="text-lg font-questrial font-bold text-center"> $7 Trillion of Compute</p>
+              <p className="text-gray-500 text-sm">
+                ”Look, I think compute is gonna be the currency of the
+                future. I think it will be maybe the most precious
+                commodity in the world. And I think we should be investing
+                heavily to make a lot more compute...”
+              </p>
+            </div>
+          </a>
+        </div>
       </section>
 
     </ScrollableLayout>
