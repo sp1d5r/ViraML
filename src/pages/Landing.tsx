@@ -284,7 +284,7 @@ const Landing : React.FC = () => {
 
         <div className="w-full flex flex-wrap justify-center gap-10 items-center max-w-screen-xl">
           <a id="FacebookCard" href="https://www.youtube.com/watch?v=i-o5YbNfmh0" className="flex flex-wrap gap-2">
-            <div className="border border-black dark:border-white rounded-xl sm:w-auto min-w-[350px] max-w-[400px] h-[350px] text-black dark:text-white py-10 px-5 hover:scale-110 transition-all flex flex-col gap-2 items-center justify-evenly">
+            <div className=" border border-black dark:border-white rounded-xl w-[350px] sm:w-auto  max-w-[400px] h-[350px] text-black dark:text-white py-10 px-5 hover:scale-110 transition-all flex flex-col gap-2 items-center justify-evenly">
               <img src={Facebook} alt="Zucc" className="aspect-square invert dark:invert-0 h-[50px]" />
               <p className="text-sm">Mark Zuckerberg</p>
               <p className="text-lg font-questrial font-bold text-center">Energy, not computel The Bottleneck to AI</p>
