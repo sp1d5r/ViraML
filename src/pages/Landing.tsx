@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ScrollableLayout from '../layouts/ScrollableLayout';
@@ -13,6 +13,7 @@ import WhyLight from '../assets/landing/WHYDark.svg';
 import Facebook from '../assets/landing/facebook.png';
 import OpenAI from '../assets/landing/OpenAI.png';
 import Groq from '../assets/landing/Groq.png';
+import Explanation from '../components/explanation/Explanation';
 
 const Landing : React.FC = () => {
   const landingComp = useRef(null);
@@ -128,7 +129,7 @@ const Landing : React.FC = () => {
         xPercent: (i) => +120 * (i + 1),
         opacity: 0.2,
       });
-      gsap.fromTo(['#OpenAiCard', '#GroqCard', '#FacebookCard'], { xPercent: (i) => -(10 * 2), opacity: 0 }, {
+      gsap.fromTo(['#FacebookCard', '#GroqCard', '#OpenAiCard'], { yPercent: (i) => -(10 * 2), opacity: 0 }, {
         scrollTrigger: {
           trigger: '#WhyMain',
           start: 'top 55%',
@@ -137,7 +138,8 @@ const Landing : React.FC = () => {
           pin: false,
           toggleActions: 'play reverse pause pause',
         },
-        xPercent: 0,
+        yPercent: 0,
+        stagger: 0.2,
         opacity: 1,
       });
     }
@@ -219,7 +221,7 @@ const Landing : React.FC = () => {
         <img id="TopBanner" className="absolute top-16 max-w-max w-[2800px] invert dark:invert-0 opacity-90" src={Banner} alt="ViraML" />
 
         <div className="my-8 p-8 flex flex-col">
-          <span className="text-7xl text-black m-auto my-[70px] dark:text-white font-questrial">
+          <span id="AboutVira" className="text-7xl text-black m-auto my-[70px] dark:text-white font-questrial">
             About Vira
             <span className="text-purple-300">ML</span>
           </span>
@@ -265,7 +267,11 @@ const Landing : React.FC = () => {
         <img id="BottomBanner" className="absolute bottom-0 max-w-max w-[2800px] invert dark:invert-0 opacity-90" src={Banner} alt="ViraML" />
       </section>
 
-      <section ref={whyComp} className="relative bg-white dark:bg-black min-h-[80vh] flex flex-col justify-start items-center border-t border-black dark:border-white overflow-hidden">
+      {/* Explantion */}
+      <Explanation />
+
+      {/* Why */}
+      <section ref={whyComp} className="relative bg-white dark:bg-black pb-16 flex flex-col justify-start items-center overflow-hidden">
         <div id="WhyContainer" className="w-full flex justify-center items-center h-64">
           <img id="WhyMainLeft1" className="absolute" src={WhyLight} alt="Why" />
           <img id="WhyMainLeft2" className="absolute" src={WhyLight} alt="Why" />
@@ -276,10 +282,10 @@ const Landing : React.FC = () => {
           <span id="WhyMain" className="absolute text-[80px] my-[70px] dark:text-white font-questrial text-purple-300">WHY?</span>
         </div>
 
-        <div className="w-full flex flex-wrap justify-center gap-10 items-center">
+        <div className="w-full flex flex-wrap justify-center gap-10 items-center max-w-screen-xl">
           <a id="FacebookCard" href="https://www.youtube.com/watch?v=i-o5YbNfmh0" className="flex flex-wrap gap-2">
-            <div className="border border-black dark:border-white rounded-xl w-[350px] sm:w-auto min-w-[350px] max-w-[400px] h-[350px] text-black dark:text-white py-10 px-5 hover:scale-110 transition-all flex flex-col gap-2 items-center justify-center">
-              <img src={Facebook} alt="Zucc" className="aspect-square invert dark:invert-0" />
+            <div className="border border-black dark:border-white rounded-xl sm:w-auto min-w-[350px] max-w-[400px] h-[350px] text-black dark:text-white py-10 px-5 hover:scale-110 transition-all flex flex-col gap-2 items-center justify-evenly">
+              <img src={Facebook} alt="Zucc" className="aspect-square invert dark:invert-0 h-[50px]" />
               <p className="text-sm">Mark Zuckerberg</p>
               <p className="text-lg font-questrial font-bold text-center">Energy, not computel The Bottleneck to AI</p>
               <p className="text-gray-500 text-sm">
@@ -291,8 +297,8 @@ const Landing : React.FC = () => {
           </a>
 
           <a id="GroqCard" href="https://www.youtube.com/watch?v=Z0jqIk7MUfE&ab_channel=MatthewBerman" className="flex flex-wrap gap-2">
-            <div className=" border border-black dark:border-white rounded-xl w-[350px] sm:w-auto  max-w-[400px] h-[350px] text-black dark:text-white py-10 px-5 hover:scale-110 transition-all flex flex-col gap-2 items-center justify-center">
-              <img src={Groq} alt="Groq" className=" invert dark:invert-0" />
+            <div className=" border border-black dark:border-white rounded-xl w-[350px] sm:w-auto  max-w-[400px] h-[350px] text-black dark:text-white py-10 px-5 hover:scale-110 transition-all flex flex-col gap-2 items-center justify-evenly">
+              <img src={Groq} alt="Groq" className=" invert dark:invert-0 h-[50px]" />
               <p className="text-sm">Jonathan Ross</p>
               <p className="text-lg font-questrial font-bold text-center">Compute is the new oil</p>
               <p className="text-gray-500 text-sm">
@@ -308,8 +314,8 @@ const Landing : React.FC = () => {
           </a>
 
           <a id="OpenAiCard" href="https://www.youtube.com/watch?v=jvqFAi7vkBc&t=4208s&ab_channel=LexFridman" className="flex flex-wrap gap-2">
-            <div className="border border-black dark:border-white rounded-xl min-w-[350px] w-[350px] sm:w-auto max-w-[400px] h-[350px] text-black dark:text-white py-10 px-5 hover:scale-110 transition-all flex flex-col gap-2 items-center justify-center">
-              <img src={OpenAI} alt="OpenAI" className="aspect-square invert dark:invert-0" />
+            <div className="border border-black dark:border-white rounded-xl min-w-[350px] w-[350px] sm:w-auto max-w-[400px] h-[350px] text-black dark:text-white py-10 px-5 hover:scale-110 transition-all flex flex-col gap-2 items-center justify-evenly">
+              <img src={OpenAI} alt="OpenAI" className="aspect-square invert dark:invert-0 h-[50px]" />
               <p className="text-sm">Sam Altman</p>
               <p className="text-lg font-questrial font-bold text-center"> $7 Trillion of Compute</p>
               <p className="text-gray-500 text-sm">
@@ -322,7 +328,6 @@ const Landing : React.FC = () => {
           </a>
         </div>
       </section>
-
     </ScrollableLayout>
   );
 };
